@@ -3,11 +3,13 @@ import { useLocation } from "react-router-dom";
 function StartPage() {
   const location = useLocation();
   const { Circuit } = location.state;
-
+  let CircSorted = Circuit.sort(function (a, b) {
+    return parseFloat(a.groupPhasePos) - parseFloat(b.groupPhasePos);
+  });
   return (
     <div>
       <p>asdasda</p>
-      {console.log("CIRC INFO", Circuit)}
+      {console.log("CIsadsadRC INFO", CircSorted)}
     </div>
   );
 }
