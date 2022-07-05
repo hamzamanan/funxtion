@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { getSingleExercise } from "../api/request";
-import { Spin } from "antd";
+import { Link } from "react-router-dom";
+import { Button, Spin } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import "../styles/testStyle.css";
 function SingleWorkout() {
@@ -15,6 +16,7 @@ function SingleWorkout() {
   const groupData = [];
   const circuitInformation = [];
   const phaseName = [];
+  let newFinalArr;
 
   useEffect(() => {
     getSingleExercise(exerciseID, token).then((res) => {
@@ -101,6 +103,7 @@ function SingleWorkout() {
           }{" "}
           kal
         </p>
+
         {allCircuitExercisesArr.map((item, index) => {
           var a = findInArray(singleExerciseData, item.type, item.id);
 
@@ -162,14 +165,17 @@ function SingleWorkout() {
               } else {
                 agg.push({
                   circuitId: curr.circuitId,
+                  ExerciseAttributes: curr.ExerciseAttributes,
                   singleExercise: [curr.singleExercise],
                   groupPhaseName: curr.groupPhaseName,
+                  groupPhasePos: curr.groupPhasePos,
                 });
               }
               return agg;
             }, []);
 
             console.log("NEW ARRAYYY : ", ans);
+            newFinalArr = ans;
           });
 
           {
@@ -184,6 +190,17 @@ function SingleWorkout() {
         {phaseName.map((objItem, objItemKey) => {
           return (
             <div>
+              <Button>
+                <Link
+                  to={"/startPage"}
+                  state={{
+                    Circuit: newFinalArr,
+                  }}
+                >
+                  {" "}
+                  START EXERCISE{" "}
+                </Link>
+              </Button>
               <h1>{objItem.attributes.name}</h1>
               <div
                 style={{
@@ -244,13 +261,6 @@ function SingleWorkout() {
                             singleItemObject.ExerciseAttributes[0].attributes[
                               "target-repetitions"
                             ]
-                          }{" "}
-                        </p>
-                        <p>
-                          CIRCUIT TYPE IS :{" "}
-                          {
-                            singleItemObject.ExerciseAttributes[0].relationships
-                              .type.data.type
                           }{" "}
                         </p>
                       </div>
