@@ -72,6 +72,9 @@ function SingleWorkout() {
       >
         {allCircuitExercisesArr.map((item, index) => {
           var x = findInArray(singleExerciseData, item.type, item.id);
+          {
+            console.log("x : ", x);
+          }
           var y = findInArray(
             singleExerciseData,
             x[0].relationships.phase.data.type,
@@ -174,7 +177,6 @@ function SingleWorkout() {
               return agg;
             }, []);
 
-            console.log("NEW ARRAYYY : ", ans);
             newFinalArr = ans;
           });
 
@@ -184,8 +186,6 @@ function SingleWorkout() {
             });
           }
         })}
-
-        {console.log(circuitInformation)}
 
         {phaseName.map((objItem, objItemKey) => {
           return (
@@ -229,7 +229,7 @@ function SingleWorkout() {
                         </p>
                         <p>PHASE NAME IS : {singleItemObject.groupPhaseName}</p>
                         <p>
-                          SETS :{" "}
+                          SETS/ROUNDS :{" "}
                           {
                             singleItemObject.ExerciseAttributes[0].attributes[
                               "number-of-rounds"
