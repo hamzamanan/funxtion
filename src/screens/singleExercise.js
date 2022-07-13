@@ -72,14 +72,13 @@ function SingleWorkout() {
       >
         {allCircuitExercisesArr.map((item, index) => {
           var x = findInArray(singleExerciseData, item.type, item.id);
-          {
-            console.log("x : ", x);
-          }
+
           var y = findInArray(
             singleExerciseData,
             x[0].relationships.phase.data.type,
             x[0].relationships.phase.data.id
           );
+
           phaseName.push(y[0]);
           phaseName.sort((a, b) => {
             return a.attributes.position - b.attributes.position;
@@ -112,6 +111,7 @@ function SingleWorkout() {
 
           a[0].relationships.groups.data.map((obj, objKey) => {
             var b = findInArray(singleExerciseData, obj.type, obj.id);
+
             var c = findInArray(
               singleExerciseData,
               b[0].relationships.phase.data.type,
@@ -150,6 +150,9 @@ function SingleWorkout() {
               f[0].relationships.exercise.data.type,
               f[0].relationships.exercise.data.id
             );
+            {
+              console.log("G is : ", g);
+            }
 
             let SingleExercise = {
               ExerciseAttributes: e,
