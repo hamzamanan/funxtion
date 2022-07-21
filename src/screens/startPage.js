@@ -65,7 +65,7 @@ function StartPage() {
     }, []);
   };
   const result = remapData();
-  console.log("result : ", result);
+  console.log("result is : ", result);
 
   return (
     <div>
