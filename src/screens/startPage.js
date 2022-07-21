@@ -24,14 +24,13 @@ function StartPage() {
     let innerIndexLength = CircSorted[outerIndex].singleExercise.length;
     for (let innerIndex = 0; innerIndex < innerIndexLength; innerIndex++) {
       singleExerciseInfo.push({
-        video_name:
-          CircSorted[outerIndex].singleExercise[innerIndex][0].attributes.name,
-        video_url:
-          CircSorted[outerIndex].singleExercise[innerIndex][0].attributes.video,
+        circuit_id: CircSorted[outerIndex].circuitId,
         sets_rounds:
           CircSorted[outerIndex].ExerciseAttributes[0].attributes[
             "number-of-rounds"
           ],
+        video_name:
+          CircSorted[outerIndex].singleExercise[innerIndex][0].attributes.name,
         rest_sets:
           CircSorted[outerIndex].ExerciseAttributes[0].attributes[
             "rest-after-set-in-seconds"
@@ -40,10 +39,34 @@ function StartPage() {
           CircSorted[outerIndex].ExerciseAttributes[0].attributes[
             "rest-after-exercise-in-seconds"
           ],
-        phase_name: CircSorted[outerIndex].groupPhaseName,
+        video_url:
+          CircSorted[outerIndex].singleExercise[innerIndex][0].attributes.video,
       });
     }
   }
+  const remapData = () => {
+    let circuitId;
+    let itemsToCopy = [];
+
+    return singleExerciseInfo.reduce((memo, item) => {
+      if (circuitId !== item.circuit_id) {
+        memo.push(...itemsToCopy);
+        itemsToCopy = [];
+      }
+
+      memo.push(item);
+
+      circuitId = item.circuit_id;
+      if (item.sets_rounds === 2) {
+        itemsToCopy.push(item);
+      }
+
+      return memo;
+    }, []);
+  };
+  const result = remapData();
+  console.log("result : ", result);
+
   return (
     <div>
       <p>asdasda</p>
@@ -57,7 +80,6 @@ function StartPage() {
           width: "100%",
         }}
       >
-        {console.log("THE DATA IS : ", singleExerciseInfo)}{" "}
         <ReactPlayer
           url={playUrl}
           controls={true}
