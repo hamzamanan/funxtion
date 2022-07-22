@@ -44,28 +44,69 @@ function StartPage() {
       });
     }
   }
+  // const remapData = () => {
+  //   let circuitId;
+  //   let itemsToCopy = [];
+  //   let rounds = 0;
+
+  //   return singleExerciseInfo.reduce((memo, item) => {
+  //     if (circuitId !== item.circuit_id) {
+  //       for (let i = 1; i < rounds; i++) {
+  //         memo.push(...itemsToCopy);
+  //       }
+
+  //       itemsToCopy = [];
+  //     }
+
+  //     memo.push(item);
+
+  //     circuitId = item.circuit_id;
+  //     rounds = item.sets_rounds;
+
+  //     if (item.sets_rounds > 1) {
+  //       itemsToCopy.push(item);
+  //     }
+
+  //     return memo;
+  //   }, []);
+  // };
+
   const remapData = () => {
     let circuitId;
     let itemsToCopy = [];
+    let rounds = 0;
 
-    return singleExerciseInfo.reduce((memo, item) => {
+    const result = singleExerciseInfo.reduce((memo, item) => {
       if (circuitId !== item.circuit_id) {
-        memo.push(...itemsToCopy);
+        // We already have 1 copy (from the original source)
+        // so start iterating at 1.
+        for (let i = 1; i < rounds; i++) {
+          memo.push(...itemsToCopy);
+        }
+
         itemsToCopy = [];
       }
 
       memo.push(item);
 
       circuitId = item.circuit_id;
-      if (item.sets_rounds === 2) {
-        itemsToCopy.push(item);
-      }
+      rounds = item.sets_rounds;
+      itemsToCopy.push(item);
 
       return memo;
     }, []);
+
+    // We already have 1 copy (from the original source)
+    // so start iterating at 1.
+    for (let i = 1; i < rounds; i++) {
+      result.push(...itemsToCopy);
+    }
+
+    return result;
   };
+
   const result = remapData();
-  console.log("result is : ", result);
+  console.log("result : ", result);
 
   return (
     <div>

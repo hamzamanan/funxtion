@@ -150,9 +150,6 @@ function SingleWorkout() {
               f[0].relationships.exercise.data.type,
               f[0].relationships.exercise.data.id
             );
-            {
-              console.log("G is : ", g);
-            }
 
             let SingleExercise = {
               ExerciseAttributes: e,
