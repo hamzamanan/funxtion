@@ -144,13 +144,11 @@ function SingleWorkout() {
           //  e is the data for the exercises which includes rounds , sets ,rest information
           e[0].relationships.exercises.data.map((object, objectKey) => {
             var f = findInArray(singleExerciseData, object.type, object.id);
-
             var g = findInArray(
               singleExerciseData,
               f[0].relationships.exercise.data.type,
               f[0].relationships.exercise.data.id
             );
-
             let SingleExercise = {
               ExerciseAttributes: e,
               circuitId: e[0].id,
