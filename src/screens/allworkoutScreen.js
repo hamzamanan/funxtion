@@ -53,6 +53,34 @@ function AllWorkoutScreen() {
       <p>THE TOTAL NUMBER OF PAGES ARE {totalPages}</p>
       <div
         style={{
+          display: "flex",
+          flexDirection: "row",
+          width: "100%",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        {" "}
+        <button
+          onClick={() => {
+            setLoading(true);
+            callPageData(currentPage - 1);
+          }}
+        >
+          <LeftOutlined />
+        </button>
+        <p style={{ marginLeft: "10px", marginRight: "10px" }}>{currentPage}</p>
+        <button
+          onClick={() => {
+            setLoading(true);
+            callPageData(currentPage + 1);
+          }}
+        >
+          <RightOutlined />
+        </button>
+      </div>
+      <div
+        style={{
           width: "100%",
           border: "1px solid green",
           display: "flex",

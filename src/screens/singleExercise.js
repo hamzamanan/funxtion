@@ -220,7 +220,14 @@ function SingleWorkout() {
                             ]
                           }
                         />
-
+                        <p>
+                          DURATION IS :{" "}
+                          {
+                            singleItemObject.ExerciseAttributes[0].attributes[
+                              "duration-in-seconds"
+                            ]
+                          }{" "}
+                        </p>
                         <p>CIRCUIT ID IS : {singleItemObject.circuitId}</p>
                         <p style={{ color: "#ff1e1e" }}>
                           {singleItemObject.singleExercise[0].attributes.name}
