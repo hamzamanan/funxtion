@@ -10,7 +10,7 @@ function StartPage() {
   let CircSorted = Circuit.sort(function (a, b) {
     return parseFloat(a.groupPhasePos) - parseFloat(b.groupPhasePos);
   });
-
+  console.log(Circuit);
   let singleExerciseInfo = [];
   for (let outerIndex = 0; outerIndex < CircSorted.length; outerIndex++) {
     let innerIndexLength = CircSorted[outerIndex].singleExercise.length;
