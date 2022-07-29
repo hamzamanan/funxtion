@@ -12,6 +12,7 @@ function SingleWorkout() {
   const location = useLocation();
   const { exerciseID } = location.state;
   const [singleExerciseData, setSingleExerciseData] = useState();
+  const [gen1_value, setGen1Value] = useState("dummy");
   const [loading, setLoading] = useState(true);
   const groupData = [];
   const circuitInformation = [];
@@ -140,7 +141,6 @@ function SingleWorkout() {
             itm.groups[0].relationships.group.data.type,
             itm.groups[0].relationships.group.data.id
           );
-
           //  e is the data for the exercises which includes rounds , sets ,rest information
           e[0].relationships.exercises.data.map((object, objectKey) => {
             var f = findInArray(singleExerciseData, object.type, object.id);
@@ -149,12 +149,32 @@ function SingleWorkout() {
               f[0].relationships.exercise.data.type,
               f[0].relationships.exercise.data.id
             );
+            if (f[0].relationships.sets.data.length > 0) {
+              var h = findInArray(
+                singleExerciseData,
+                f[0].relationships.sets.data[0].type,
+                f[0].relationships.sets.data[0].id
+              );
+              if (h[0].relationships.targets.data.length > 0) {
+                var target = findInArray(
+                  singleExerciseData,
+                  h[0].relationships.targets.data[0].type,
+                  h[0].relationships.targets.data[0].id
+                );
+                console.log(target);
+                setGen1Value(target[0].attributes.value);
+              } else {
+                setGen1Value("dummy");
+              }
+            }
+
             let SingleExercise = {
               ExerciseAttributes: e,
               circuitId: e[0].id,
               singleExercise: g,
               groupPhaseName: itm.PhasePosnName.Pname,
               groupPhasePos: itm.PhasePosnName.P_position,
+              duration: target[0].attributes.value,
             };
 
             circuitInformation.push(SingleExercise);
@@ -170,6 +190,7 @@ function SingleWorkout() {
                   singleExercise: [curr.singleExercise],
                   groupPhaseName: curr.groupPhaseName,
                   groupPhasePos: curr.groupPhasePos,
+                  duration: target[0].attributes.value,
                 });
               }
               return agg;
