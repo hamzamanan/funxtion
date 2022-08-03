@@ -12,6 +12,9 @@ function StartPage() {
   });
   console.log(Circuit);
   let singleExerciseInfo = [];
+  {
+    console.log("helo");
+  }
   for (let outerIndex = 0; outerIndex < CircSorted.length; outerIndex++) {
     let innerIndexLength = CircSorted[outerIndex].singleExercise.length;
     for (let innerIndex = 0; innerIndex < innerIndexLength; innerIndex++) {
